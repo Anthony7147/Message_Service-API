@@ -11,7 +11,7 @@ RSpec.describe Notification, type: :model do
   describe 'validations' do
     before { @notification = FactoryGirl.build_stubbed(:notification) }
 
-  	it 'can be created if valid' do
+    it 'can be created if valid' do
       @notification.phone = nil
       @notification.body = nil
       @notification.source_app = nil
@@ -22,7 +22,7 @@ RSpec.describe Notification, type: :model do
       @notification.phone = "atextphonenumber"
       expect(@notification).to_not be_valid
     end
-
+    
     it 'requires the phone attribute to only have 10 characters' do
       @notification.phone = "12345678901"
       expect(@notification).to_not be_valid
@@ -31,6 +31,14 @@ RSpec.describe Notification, type: :model do
     it 'limits the body attribute to 160 characters' do
       @notification.body = "word" * 500
       expect(@notification).to_not be_valid
+    end
+  end
+
+  describe 'relationship' do
+    it 'has a connection to a client based on the source_app attribute' do
+      client = Client.create(source_app: "myapp", api_key: "RbZHfHtD1h9XZvs4fGPJUgtt")
+      notification = client.notifications.create!(phone: '9999999999', body: 'message content')
+      expect(notification.source_app).to eq('myapp')
     end
   end
 end
