@@ -24,3 +24,4 @@ group :development do
 end
 
 gem 'dotenv-rails', :groups => [:development, :test]
+gem 'twilio-ruby', '~> 4.11.1'
