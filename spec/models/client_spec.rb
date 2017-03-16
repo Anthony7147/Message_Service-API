@@ -19,4 +19,10 @@ RSpec.describe Client, type: :model do
       expect(@client).to_not be_valid
     end
   end
+
+  it 'has a unique source_app' do
+      first_client = Client.create(source_app: "app_name", api_key: "I384fHtD1h9XZvs4fGPJUgtt")
+      duplicate_client = Client.create(source_app: "app_name", api_key: "I384fHtD1h9XZvs4fGPJUgtt")
+      expect(duplicate_client).to_not be_valid
+    end
 end
