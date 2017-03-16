@@ -15,6 +15,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
+  
 end
 
 group :development do
@@ -22,3 +23,4 @@ group :development do
   gem 'spring'
 end
 
+gem 'dotenv-rails', :groups => [:development, :test]
